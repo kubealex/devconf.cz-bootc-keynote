@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox
+Exec=firefox --kiosk https://google.com
+X-GNOME-Autostart-enabled=true
