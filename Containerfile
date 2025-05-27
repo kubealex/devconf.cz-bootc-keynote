@@ -1,9 +1,10 @@
-FROM quay.io/centos-bootc/centos-bootc:stream10
+FROM quay.io/centos-bootc/centos-bootc:stream9
 
 RUN dnf -y copr enable @redhat-et/flightctl epel-9-x86_64 && \
     dnf -y group install GNOME && \
     dnf -y install flightctl-agent mkpasswd firefox && \
-    dnf -y clean all
+    dnf -y clean all && \
+    systemctl set-default graphical.target
 
 RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel sysadmin -p $pass && \
     echo "%wheel        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/wheel-sudo && \
