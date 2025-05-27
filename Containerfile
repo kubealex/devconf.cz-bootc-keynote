@@ -1,6 +1,6 @@
 FROM quay.io/centos-bootc/centos-bootc:stream10
 
-RUN dnf -y copr enable @redhat-et/flightctl centos-stream-9-x86_64 && \
+RUN dnf -y copr enable @redhat-et/flightctl epel-9-x86_64 && \
     dnf -y group install GNOME && \
     dnf -y install flightctl-agent && \
     dnf -y clean all && \
