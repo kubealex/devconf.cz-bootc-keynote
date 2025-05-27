@@ -7,10 +7,13 @@ RUN dnf -y copr enable @redhat-et/flightctl epel-9-x86_64 && \
     systemctl set-default graphical.target && \
     systemctl enable flightctl-agent.service
 
-RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel kiosk-user -p $pass && \
+RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel kiosk-user && \
     echo "%wheel        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/wheel-sudo && \
-    echo "This is a new update to 10" > /etc/motd && \
     mkdir -p /home/kiosk-user/.config/autostart
+
+COPY ./tailwind.container /usr/share/containers/systemd/tailwind.container
+RUN ln -s /usr/share/containers/systemd/tailwind.container /usr/lib/bootc/bound-images.d/tailwind.container
+
 ADD firefox.desktop /home/kiosk-user/.config/autostart/
 ADD config.yaml /etc/flightctl/
 RUN chown -R kiosk-user:kiosk-user /home/kiosk-user/.config
