@@ -136,4 +136,4 @@ If everything went smooth, you should see the following result:
 
 Verify that the system booted up and that the POS application is available!
 
-![](kubevirt-ui.png
+![](./assets/kubevirt-ui.png)
