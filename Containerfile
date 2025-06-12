@@ -7,7 +7,7 @@ RUN dnf -y copr enable @redhat-et/flightctl epel-9-x86_64 && \
     systemctl set-default graphical.target && \
     systemctl enable flightctl-agent.service
 
-RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel kiosk-user && \
+RUN pass=$(mkpasswd --method=SHA-512 --rounds=4096 redhat) && useradd -m -G wheel kiosk-user -p $pass && \
     echo "%wheel        ALL=(ALL)       NOPASSWD: ALL" > /etc/sudoers.d/wheel-sudo && \
     mkdir -p /home/kiosk-user/.config/autostart
 
